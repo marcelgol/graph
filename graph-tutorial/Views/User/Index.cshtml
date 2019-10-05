@@ -1,0 +1,27 @@
+﻿
+@model IEnumerable<Microsoft.Graph.User>
+
+@{
+    ViewBag.Title = "User";
+}
+
+<h1>Users</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">E-mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DisplayName</td>
+                <td>@item.Mail</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
