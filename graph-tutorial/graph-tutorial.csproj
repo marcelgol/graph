@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\ExcelChartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,6 +187,7 @@
     </Compile>
     <Compile Include="Helpers\GraphHelper.cs" />
     <Compile Include="Models\Alert.cs" />
+    <Compile Include="Models\ExcelChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TokenStorage\SessionTokenStore.cs" />
@@ -268,6 +270,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\ExcelChart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
