@@ -1,21 +1,20 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.Graph;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using graph_tutorial.Models;
 using graph_tutorial.TokenStorage;
+using Microsoft.Graph;
 using Microsoft.Identity.Client;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Security.Claims;
-using System.Web;
 using System.Net.Http;
-using System;
-using Newtonsoft.Json.Linq;
-using graph_tutorial.Models;
-using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace graph_tutorial.Helpers
 {
@@ -62,8 +61,6 @@ namespace graph_tutorial.Helpers
 
             var users = await graphClient.Users.Request().GetAsync();
 
-           
-
             return users.CurrentPage;
         }
 
@@ -75,27 +72,15 @@ namespace graph_tutorial.Helpers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            string chartId = null;
-
-            HttpResponseMessage chartsResponse = await client.GetAsync("charts");
-
-            var responseContent = await chartsResponse.Content.ReadAsStringAsync();
-            var parsedResponse = JObject.Parse(responseContent);
-            chartId = (string)parsedResponse["value"][0]["id"];
-
             HttpResponseMessage response = await client.GetAsync("charts('" + "Chart 2" + "')/Image(width=0,height=0,fittingMode='fit')");
 
-          
             string resultString = await response.Content.ReadAsStringAsync();
-
-            dynamic result = JsonConvert.DeserializeObject(resultString);
             
             var chart = new ExcelChart();
-            chart.Image = result["value"].ToString();
+            chart.Image = (string)JObject.Parse(resultString)["value"];
 
             return chart;
         }
-
 
 
         private static GraphServiceClient GetAuthenticatedClient()
@@ -123,8 +108,6 @@ namespace graph_tutorial.Helpers
                         requestMessage.Headers.Authorization =
                             new AuthenticationHeaderValue("Bearer", result.AccessToken);
 
-
-                        
                     }));
         }
     }
